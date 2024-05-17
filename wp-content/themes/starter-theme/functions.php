@@ -174,3 +174,142 @@ if ( defined( 'JETPACK__VERSION' ) ) {
 	require get_template_directory() . '/inc/jetpack.php';
 }
 
+
+/**
+ * Show Message to install ACF in Admin.
+ */
+
+function check_acf_plugin() {
+	if (!class_exists('ACF')) {
+		add_action('admin_notices', 'acf_plugin_notice');
+	}
+}
+add_action('admin_init', 'check_acf_plugin');
+
+function acf_plugin_notice() {
+	?>
+	<div class="notice notice-warning is-dismissible">
+		<p><?php _e('This theme requires the Advanced Custom Fields (ACF) plugin. Please install and activate it.', 'your-text-domain'); ?></p>
+	</div>
+	<?php
+}
+
+/**
+ * Define ACF fields.
+ */
+
+if( function_exists('acf_add_local_field_group') ) {
+
+	// Menu Categories
+	acf_add_local_field_group(array(
+		'key' => 'group_menu_items',
+		'title' => 'Menu Items',
+		'fields' => array(
+			array(
+				'key' => 'field_menu_category',
+				'label' => 'Category',
+				'name' => 'category',
+				'type' => 'select',
+				'choices' => array(
+					'starter' => 'Starter',
+					'main_dishes' => 'Main Dishes',
+					'desserts' => 'Desserts',
+				),
+			),
+			array(
+				'key' => 'field_menu_item_name',
+				'label' => 'Name',
+				'name' => 'name',
+				'type' => 'text',
+			),
+			array(
+				'key' => 'field_menu_item_recipe',
+				'label' => 'Recipe',
+				'name' => 'recipe',
+				'type' => 'textarea',
+			),
+			array(
+				'key' => 'field_menu_item_price',
+				'label' => 'Price',
+				'name' => 'price',
+				'type' => 'number',
+				'prepend' => '$',
+			),
+		),
+		'location' => array(
+			array(
+				array(
+					'param' => 'post_type',
+					'operator' => '==',
+					'value' => 'menu_item',
+				),
+			),
+		),
+	));
+
+	// Popular Dishes
+	acf_add_local_field_group(array(
+		'key' => 'group_popular_dishes',
+		'title' => 'Popular Dishes',
+		'fields' => array(
+			array(
+				'key' => 'field_popular_dish_image',
+				'label' => 'Image',
+				'name' => 'image',
+				'type' => 'image',
+				'return_format' => 'url',
+			),
+			array(
+				'key' => 'field_popular_dish_price',
+				'label' => 'Price',
+				'name' => 'price',
+				'type' => 'number',
+				'prepend' => '$',
+			),
+			array(
+				'key' => 'field_popular_dish_description',
+				'label' => 'Description',
+				'name' => 'description',
+				'type' => 'textarea',
+			),
+		),
+		'location' => array(
+			array(
+				array(
+					'param' => 'post_type',
+					'operator' => '==',
+					'value' => 'popular_dish',
+				),
+			),
+		),
+	));
+}
+
+/**
+ * Define Custom post type for Menu and popular dishes.
+ */
+function create_custom_post_types() {
+
+	// Menu Item Post Type
+	register_post_type('menu_item', array(
+		'labels' => array(
+			'name' => __('Menu Items'),
+			'singular_name' => __('Menu Item'),
+		),
+		'public' => true,
+		'has_archive' => true,
+		'supports' => array('title', 'editor', 'thumbnail'),
+	));
+
+	// Popular Dish Post Type
+	register_post_type('popular_dish', array(
+		'labels' => array(
+			'name' => __('Popular Dishes'),
+			'singular_name' => __('Popular Dish'),
+		),
+		'public' => true,
+		'has_archive' => true,
+		'supports' => array('title', 'editor', 'thumbnail'),
+	));
+}
+add_action('init', 'create_custom_post_types');
