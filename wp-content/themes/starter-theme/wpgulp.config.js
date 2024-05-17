@@ -75,6 +75,10 @@ const imgSRC = './src/images/**/*';
 // > Must be different from the imagesSRC folder.
 const imgDST = './assets/images/';
 
+// Font source and destination paths
+const fontsSRC = './src/fonts/**/*';
+const fontsDST = './assets/fonts/';
+
 // >>>>> Watch files paths.
 // Path to all *.scss files inside css folder and inside them.
 const watchStyles = './src/styles/**/*.scss';
@@ -169,6 +173,8 @@ module.exports = {
 	jsCustomFile,
 	imgSRC,
 	imgDST,
+	fontsSRC,
+	fontsDST,
 	watchStyles,
 	watchJsVendor,
 	watchJsCustom,

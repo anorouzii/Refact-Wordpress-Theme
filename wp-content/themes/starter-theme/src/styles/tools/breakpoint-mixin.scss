@@ -1,0 +1,13 @@
+@mixin breakpoint($breakpoint, $type: max) {
+  @if $type == max {
+    @media screen and (max-width: $breakpoint) {
+      @content;
+    }
+  } @else if $type == min {
+    @media screen and (min-width: $breakpoint) {
+      @content;
+    }
+  } @else {
+    @error "Invalid breakpoint type. Please use 'max' or 'min'.";
+  }
+}

@@ -1,3 +1,18 @@
+@import '../tools/breakpoint-mixin';
+
+.container {
+  width: 100%;
+  max-width: calc(75.5rem + 2rem); // Container size + desktop padding size
+  margin: 0 auto;
+  padding: 0 1rem;
+  @include breakpoint(1280px, 'max') {
+    padding: 0 2.125rem;
+  }
+  @include breakpoint(576px, 'max') {
+    padding: 0 1.5rem;
+  }
+}
+
 .row {
     display: -webkit-flex;
     display: -ms-flexbox;

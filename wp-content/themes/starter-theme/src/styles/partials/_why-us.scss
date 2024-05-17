@@ -1,0 +1,95 @@
+@import '../tools/breakpoint-mixin';
+
+.why-us {
+  padding-top: 6rem;
+  @include breakpoint(992px, 'max') {
+    padding-top: 4.5rem;
+  }
+  @include breakpoint(576px, 'max') {
+    padding-top: 0;
+  }
+  &__container {
+    position: relative;
+    @include breakpoint(992px, 'max') {
+      padding-bottom: 33.25rem;
+    }
+    @include breakpoint(640px, 'max') {
+      padding-bottom: 27.75rem;
+    }
+    @include breakpoint(576px, 'max') {
+      padding-bottom: 1.563rem;
+    }
+  }
+  &__content {
+    max-width: 30rem;
+    @include breakpoint(1180px, 'max') {
+      max-width: 24rem;
+    }
+    @include breakpoint(992px, 'max') {
+      max-width: 100%;
+    }
+  }
+  &__title {
+    margin-bottom: 3.5rem;
+    @include breakpoint(992px, 'max') {
+      text-align: center;
+    }
+  }
+  &__description {
+    font-size: 1.25rem;
+    line-height: 1.625rem;
+    color: $white-300;
+    &:not(:first-of-type) {
+      margin-top: 1.5rem;
+    }
+    @include breakpoint(992px, 'max') {
+      font-size: 1.5rem;
+      line-height: 1.95rem;
+    }
+    @include breakpoint(576px, 'max') {
+      font-size: 1.375rem;
+      line-height: 1.788rem;
+      text-align: center;
+    }
+  }
+  &__media {
+    position: absolute;
+    right: 4rem;
+    top: 4rem;
+    @include breakpoint(992px, 'max') {
+      top: initial;
+      bottom: -4.5rem;
+      right: 50%;
+      transform: translateX(50%);
+    }
+    @include breakpoint(576px, 'max') {
+      position: relative;
+      bottom: unset;
+      right: unset;
+      transform: unset;
+      margin-top: 4rem;
+    }
+    &-img {
+      width: 30rem;
+      box-shadow: 0 0 20px 0 rgba(0, 0, 0, .80);
+      @include breakpoint(1280px, 'max') {
+        width: 28.75rem;
+      }
+      @include breakpoint(1180px, 'max') {
+        width: 24rem;
+      }
+      @include breakpoint(1024px, 'max') {
+        width: 22rem;
+      }
+      @include breakpoint(992px, 'max') {
+        width: 28.75rem;
+      }
+      @include breakpoint(640px, 'max') {
+        width: 24rem;
+      }
+      @include breakpoint(576px, 'max') {
+        width: 100%;
+      }
+    }
+  }
+}

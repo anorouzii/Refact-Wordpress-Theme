@@ -1,0 +1,228 @@
+@import '../tools/breakpoint-mixin';
+
+/* Background */
+.bg {
+  background-image: url('../images/hero-bg.jpg');
+  background-size: cover;
+  background-position: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 59.75rem;
+  z-index: -1;
+  @include breakpoint(992px, 'max') {
+    height: 64rem;
+    max-height: unset;
+    background-image: url('../images/hero-bg-small.jpg');
+  }
+  @include breakpoint(576px, 'max') {
+    height: 41.688rem;
+  }
+  &--main {
+
+  }
+}
+
+/* Header */
+.header {
+  margin-top: 3.75rem;
+  @include breakpoint(1280px, 'max') {
+    margin-top: 3rem;
+  }
+  @include breakpoint(1024px, 'max') {
+    margin-top: 2rem;
+  }
+  @include breakpoint(992px, 'max') {
+    margin-top: 4rem;
+  }
+  @include breakpoint(576px, 'max') {
+    margin-top: 1.5rem;
+  }
+}
+
+/* Navigation */
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  @include breakpoint(1280px, 'max') {
+    align-items: center;
+  }
+  @include breakpoint(992px, 'max') {
+    flex-direction: column;
+    row-gap: 2.5rem;
+  }
+  @include breakpoint(576px, 'max') {
+    flex-direction: row;
+  }
+}
+
+/* Logo */
+.nav__logo {
+  &-img {
+    @include breakpoint(992px, 'max') {
+      height: 8.188rem;
+    }
+    @include breakpoint(576px, 'max') {
+      height: 4.875rem;
+    }
+  }
+}
+
+/* Menu */
+.nav__list {
+  display: flex;
+  column-gap: 2.5rem;
+  align-items: center;
+  padding-bottom: 0.938rem;
+  @include breakpoint(650px, 'max') {
+    column-gap: 2rem;
+  }
+  @include breakpoint(576px, 'max') {
+    position: fixed;
+    top: -100%;
+    right: -100%;
+    flex-direction: column;
+    align-items: flex-start;
+    row-gap: 2.5rem;
+    z-index: 10;
+    background: linear-gradient(90deg, $black-900 0%, rgba(0, 0, 0, 0.85) 100%);
+    width: 100%;
+    height: 100%;
+    padding: 10.188rem 2rem 4rem 4rem;
+    visibility: hidden;
+    opacity: 0;
+    transform: scale(0);
+    border-radius: 100%;
+    transition: opacity, visibility, transform .25s, top, right .3s, border-radius .4s;
+  }
+
+  &.show {
+    @include breakpoint(576px, 'max') {
+      visibility: visible;
+      opacity: 1;
+      transform: scale(1);
+      border-radius: 0;
+      top: 0;
+      right: 0;
+    }
+  }
+}
+
+.nav__item {
+  position: relative;
+  /* Hover animation */
+  &::before, &::after {
+    content: '';
+    height: 0.125rem;
+    background-color: $white-900;
+    position: absolute;
+    bottom: -0.375rem;
+    left: 0;
+    width: 0;
+    transition: width .25s ease;
+    @include breakpoint(576px, 'max') {
+      display: none;
+    }
+  }
+
+  &:hover::before {
+    width: 100%;
+  }
+
+  /* Active state */
+  &.active {
+    &::after {
+      width: 100%;
+      background-color: $primary;
+    }
+
+    @include breakpoint(576px, 'max') {
+      .nav__link {
+        color: $primary;
+      }
+    }
+  }
+}
+
+.nav__link {
+  text-transform: uppercase;
+  font-size: 1.188rem;
+  line-height: 1.948rem;
+  white-space: nowrap;
+  @include breakpoint(992px, 'max') {
+    font-size: 1.25rem;
+  }
+  @include breakpoint(576px, 'max') {
+    font-size: 1.375rem;
+  }
+}
+
+/* Sticky Menu*/
+.sticky {
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 9;
+  background-color: rgba(0, 0, 0, 0.80);
+  backdrop-filter: blur(10px);
+  margin: 0 -2rem;
+  padding: .5rem 2rem;
+  .nav {
+    align-items: center;
+    &__list {
+      padding-bottom: unset;
+    }
+  }
+}
+/* Hamburger Menu */
+.nav__toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: .5rem;
+  z-index: 11;
+  @include breakpoint(576px, 'max') {
+    display: inline-block;
+  }
+
+  &-line {
+    display: block;
+    width: 2rem;
+    height: 0.188rem;
+    background-color: $white-900;
+    margin: .375rem 0;
+    transition: all 0.25s ease;
+
+    &:nth-child(1) {
+      transform-origin: center;
+    }
+
+    &:nth-child(2) {
+      transform-origin: center;
+    }
+  }
+
+  &.active {
+
+    .nav__toggle-line {
+      &:nth-child(1) {
+        transform: rotate(45deg) translate(0.2rem, 0.2rem);
+        height: 0.125rem;
+        width: 1.5rem;
+      }
+
+      &:nth-child(2) {
+        transform: rotate(-45deg) translate(0.2rem, -0.2rem);
+        height: 0.125rem;
+        width: 1.5rem;
+      }
+
+      &:nth-child(3) {
+        display: none;
+      }
+    }
+  }
+}

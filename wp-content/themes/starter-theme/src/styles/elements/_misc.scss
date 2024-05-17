@@ -1,15 +1,32 @@
-// ::selection{
-//   background: #575a9b;
-//   color: #fff;
-//   text-shadow: none;
-// }
-// ::-moz-selection{
-//   background: #575a9b;
-//   color: #fff;
-//   text-shadow: none;
-// }
-// ::-webkit-selection{
-//   background: #575a9b;
-//   color: #fff;
-//   text-shadow: none;
-// }
+::selection {
+  background: $black-500;
+  color: $white-900;
+  text-shadow: none;
+}
+
+::-moz-selection {
+  background: $black-500;
+  color: #fff;
+  text-shadow: none;
+}
+
+::-webkit-selection {
+  background: $black-500;
+  color: $white-900;
+  text-shadow: none;
+}
+
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: $black-500;
+}
+
+::-webkit-scrollbar {
+  width: .75rem;
+  background-color: $black-500;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: $black-900;
+  border: .5px solid $black-500;
+}

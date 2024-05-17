@@ -22,38 +22,28 @@
 
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
-<div id="page" class="site">
+<!-- Background Container -->
+<div class="bg bg--main"></div>
+
+<div id="page" class="site container">
 	<a class="skip-link screen-reader-text" href="#primary"><?php esc_html_e( 'Skip to content', 'starter-theme' ); ?></a>
 
-	<header id="masthead" class="site-header">
-		<div class="site-branding">
-			<?php
-			the_custom_logo();
-			if ( is_front_page() && is_home() ) :
-				?>
-				<h1 class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></h1>
-				<?php
-			else :
-				?>
-				<p class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></p>
-				<?php
-			endif;
-			$starter_theme_description = get_bloginfo( 'description', 'display' );
-			if ( $starter_theme_description || is_customize_preview() ) :
-				?>
-				<p class="site-description"><?php echo $starter_theme_description; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></p>
-			<?php endif; ?>
-		</div><!-- .site-branding -->
-
-		<nav id="site-navigation" class="main-navigation">
-			<button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false"><?php esc_html_e( 'Primary Menu', 'starter-theme' ); ?></button>
-			<?php
-			wp_nav_menu(
-				array(
-					'theme_location' => 'menu-1',
-					'menu_id'        => 'primary-menu',
-				)
-			);
-			?>
-		</nav><!-- #site-navigation -->
-	</header><!-- #masthead -->
+	<header class="header">
+		<nav class="nav">
+			<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="nav__logo">
+				<img src="<?php echo get_template_directory_uri(); ?>/assets/images/logo.svg" alt="Mercadito" class="nav__logo-img">
+			</a>
+			<button class="nav__toggle">
+				<span class="nav__toggle-line"></span>
+				<span class="nav__toggle-line"></span>
+				<span class="nav__toggle-line"></span>
+			</button>
+			<ul class="nav__list">
+				<li class="nav__item"><a href="#why-us" class="nav__link">Why Us</a></li>
+				<li class="nav__item"><a href="#menu" class="nav__link">Menu</a></li>
+				<li class="nav__item"><a href="#popular-dishes" class="nav__link">Popular Dishes</a></li>
+				<li class="nav__item"><a href="#book" class="nav__link">Book</a></li>
+				<li class="nav__item"><a href="#contact" class="nav__link">Contact</a></li>
+			</ul>
+		</nav>
+	</header>

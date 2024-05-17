@@ -1,0 +1,20 @@
+@import '../tools/breakpoint-mixin';
+
+.footer {
+  .copyright {
+    padding: 4.5rem 0 6.5rem;
+    text-align: center;
+    font-size: 1.125rem;
+    line-height: 1.35rem;
+    color: $black-300;
+    @include breakpoint(992px, 'max') {
+      padding: 2.5rem 0 3.5rem;
+      font-size: 1.25rem;
+      line-height: 1.5rem;
+    }
+    @include breakpoint(576px, 'max') {
+      font-size: 1.125rem;
+      line-height: 1.35rem;
+    }
+  }
+}

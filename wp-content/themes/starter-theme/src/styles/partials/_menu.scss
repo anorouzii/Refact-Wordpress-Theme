@@ -1,0 +1,147 @@
+@import '../tools/breakpoint-mixin';
+
+.menu {
+  margin-top: 8rem;
+  @include breakpoint(992px, 'max') {
+    margin-top: 9.313rem;
+  }
+  @include breakpoint(576px, 'max') {
+    margin-top: 3rem;
+  }
+  &__container {
+    @include breakpoint(992px, 'max') {
+      padding: 5.188rem 2.5rem;
+    }
+    @include breakpoint(576px, 'max') {
+      padding: 4rem 1.563rem;
+    }
+  }
+}
+.menu__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  @include breakpoint(992px, 'max') {
+    flex-direction: column;
+  }
+}
+.menu__tabs {
+  display: flex;
+  column-gap: 3rem;
+  @include breakpoint(992px, 'max') {
+    margin-top: 4.25rem;
+  }
+  @include breakpoint(576px, 'max') {
+    flex-direction: column;
+    align-items: center;
+    row-gap: 1.75rem;
+    margin-top: 3.5rem;
+  }
+}
+.menu__tab {
+  cursor: pointer;
+  font-size: 1.5rem;
+  line-height: 2.46rem;
+  text-transform: uppercase;
+  border-bottom: 1px dotted $white-900;
+  white-space: nowrap;
+  @include breakpoint(992px, 'max') {
+    font-size: 1.625rem;
+    line-height: 2.665rem;
+  }
+  @include breakpoint(576px, 'max') {
+    font-size: 1.5rem;
+    line-height: 2.46rem;
+    width: max-content;
+  }
+  &.active {
+    color: $primary;
+  }
+}
+.menu__content {
+  display: none;
+  padding-top: 4rem;
+  @include breakpoint(992px, 'max') {
+    padding-top: 4.25rem;
+  }
+  @include breakpoint(576px, 'max') {
+    padding-top: 4.125rem;
+  }
+
+  &.active {
+    display: block;
+  }
+}
+.menu__list {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1.5rem;
+  @include breakpoint(992px, 'max') {
+    row-gap: 2rem;
+  }
+}
+.menu__item {
+  padding-bottom: 0.938rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+
+  @include breakpoint(992px, 'max') {
+    padding-bottom: 1.5rem;
+  }
+  @include breakpoint(576px, 'max') {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &:not(:last-of-type) {
+    border-bottom: 1px solid $black-500;
+  }
+  &-title {
+    font-size: 1.375rem;
+    line-height: 1.813rem;
+    font-weight: normal;
+    @include breakpoint(992px, 'max') {
+      font-size: 1.625rem;
+      line-height: 2.143rem;
+    }
+    @include breakpoint(576px, 'max') {
+      font-size: 1.375rem;
+      line-height: 1.813rem;
+      text-align: center;
+    }
+  }
+  &-recipe {
+    margin-top: 0.438rem;
+    color: $black-100;
+    font-size: 1.125rem;
+    line-height: 1.845rem;
+    @include breakpoint(992px, 'max') {
+      font-size: 1.375rem;
+      line-height: 1.925rem;
+      margin-top: 0.75rem;
+    }
+    @include breakpoint(576px, 'max') {
+      font-size: 1.125rem;
+      line-height: 1.845rem;
+      text-align: center;
+    }
+  }
+  &-price {
+    font-size: 1.375rem;
+    line-height: 2.255rem;
+    color: $black-250;
+    margin-left: 2rem;
+    @include breakpoint(992px, 'max') {
+      font-size: 1.625rem;
+      line-height: 2.665rem;
+    }
+    @include breakpoint(576px, 'max') {
+      font-size: 1.375rem;
+      line-height: 2.255rem;
+      margin-left: unset;
+      margin-top: 1rem;
+    }
+  }
+}

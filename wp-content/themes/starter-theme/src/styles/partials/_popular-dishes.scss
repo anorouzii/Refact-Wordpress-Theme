@@ -1,0 +1,156 @@
+@import '../tools/breakpoint-mixin';
+
+.popular-dishes {
+  margin-top: 4rem;
+  @include breakpoint(992px, 'max') {
+    margin-top: 4.5rem;
+  }
+  @include breakpoint(576px, 'max') {
+    margin-top: 3rem;
+  }
+  &__container {
+    @include breakpoint(992px, 'max') {
+      padding: 5.5rem 2.5rem;
+    }
+    @include breakpoint(576px, 'max') {
+      padding: 4rem 1.563rem;
+    }
+  }
+}
+
+.popular-dishes__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 4rem;
+  @include breakpoint(992px, 'max') {
+    flex-direction: column;
+    row-gap: 3.5rem;
+    margin-bottom: 3.5rem;
+  }
+  @include breakpoint(992px, 'max') {
+    margin-bottom: 2.5rem;
+  }
+}
+.popular-dishes__title {
+  @include breakpoint(992px, 'max') {
+    text-align: center;
+  }
+}
+.popular-dishes__navigation {
+  display: flex;
+  align-items: center;
+  column-gap: 2rem;
+  @include breakpoint(992px, 'max') {
+    column-gap: 2.5rem;
+  }
+  &-prev, &-next {
+    outline: none;
+    border: none;
+    background: none;
+    cursor: pointer;
+    &[disabled] {
+      opacity: .5;
+    }
+  }
+  &-counter {
+    font-size: 1.375rem;
+    @include breakpoint(992px, 'max') {
+      font-size: 1.5rem;
+    }
+    > span {
+      color: $primary;
+    }
+  }
+}
+.popular-dishes__item {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 0 0 1rem 1rem;
+
+  @include breakpoint(992px, 'max') {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  @include breakpoint(576px, 'max') {
+    align-items: center;
+  }
+
+  &-image {
+    box-shadow: 0 12px 20px 0 rgba(0, 0, 0, .25);
+    width: 36.5rem;
+    @include breakpoint(1280px, 'max') {
+      width: 100%;
+      max-width: 36.5rem;
+    }
+    @include breakpoint(992px, 'max') {
+      width: 100%;
+      max-width: 38.688rem;
+    }
+    @include breakpoint(576px, 'max') {
+      width: 100%;
+    }
+  }
+  &-details {
+    max-width: 27rem;
+    padding-left: 2.5rem;
+    @include breakpoint(1180px, 'max') {
+      max-width: 24rem;
+    }
+    @include breakpoint(1080px, 'max') {
+      max-width: 22rem;
+    }
+    @include breakpoint(992px, 'max') {
+      max-width: unset;
+      padding: 2.5rem 0 0 0;
+    }
+  }
+  &-title {
+    font-size: 2rem;
+    line-height: 2.638rem;
+    font-weight: normal;
+    margin-bottom: 1.5rem;
+    @include breakpoint(992px, 'max') {
+      font-size: 2.125rem;
+      line-height: 2.803rem;
+    }
+    @include breakpoint(576px, 'max') {
+      font-size: 1.875rem;
+      line-height: 2.473rem;
+      text-align: center;
+    }
+  }
+  &-description {
+    font-size: 1.25rem;
+    line-height: 1.625rem;
+    color: $white-300;
+    margin-top: .75rem;
+    @include breakpoint(992px, 'max') {
+      font-size: 1.5rem;
+      line-height: 1.95rem;
+    }
+    @include breakpoint(576px, 'max') {
+      font-size: 1.375rem;
+      line-height: 1.788rem;
+      text-align: center;
+    }
+  }
+  &-price {
+    display: block;
+    font-size: 1.75rem;
+    line-height: 2.275rem;
+    margin-top: 1.5rem;
+    @include breakpoint(992px, 'max') {
+      font-size: 1.875rem;
+      line-height: 2.438rem;
+    }
+    @include breakpoint(576px, 'max') {
+      font-size: 1.875rem;
+      line-height: 2.438rem;
+      margin-top: 2rem;
+      text-align: center;
+    }
+  }
+}

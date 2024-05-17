@@ -32,24 +32,24 @@
 	* Load gulp plugins and passing them semantic names.
 	*/
  const gulp = require('gulp'); // Gulp of-course.
- 
+
  // CSS related plugins.
  const sass = require('gulp-sass')(require('sass'));
- 
+
  sass.compiler = require('sass');
  const minifycss = require('gulp-uglifycss'); // Minifies CSS files.
  const autoprefixer = require('gulp-autoprefixer'); // Autoprefixing magic.
  const mmq = require('gulp-merge-media-queries'); // Combine matching media queries into one.
  const rtlcss = require('gulp-rtlcss'); // Generates RTL stylesheet.
- 
+
  // JS related plugins.
  const concat = require('gulp-concat'); // Concatenates JS files.
  const terser = require('gulp-terser'); // Minifies JS files.
  const babel = require('gulp-babel'); // Compiles ESNext to browser compatible JS.
- 
+
  // Image related plugins.
  const imagemin = require('gulp-imagemin'); // Minify PNG, JPEG, GIF and SVG images with imagemin.
- 
+
  // Utility related plugins.
  const rename = require('gulp-rename'); // Renames files E.g. style.css -> style.min.css.
  const lineec = require('gulp-line-ending-corrector'); // Consistent Line Endings for non UNIX systems. Gulp Plugin for Line Ending Corrector (A utility that makes sure your files have consistent line endings).
@@ -64,7 +64,7 @@
  const plumber = require('gulp-plumber'); // Prevent pipe breaking caused by errors from gulp plugins.
  const beep = require('beepbeep');
  const zip = require('gulp-zip'); // Zip plugin or theme file.
- 
+
  /**
 	* Custom Error Handler.
 	*
@@ -73,10 +73,10 @@
  const errorHandler = r => {
 	 notify.onError('\n\n❌  ===> ERROR: <%= error.message %>\n')(r);
 	 beep();
- 
+
 	 // this.emit('end');
  };
- 
+
  /**
 	* Task: `browser-sync`.
 	*
@@ -94,13 +94,13 @@
 	 });
 	 done();
  };
- 
+
  // Helper function to allow browser reload with Gulp 4.
  const reload = done => {
 	 browserSync.reload();
 	 done();
  };
- 
+
  /**
 	* Task: `styles`.
 	*
@@ -153,7 +153,7 @@
 			 })
 		 );
  });
- 
+
  /**
 	* Task: `vendorCSS`.
 	*
@@ -194,7 +194,7 @@
 			 })
 		 );
  });
- 
+
  /**
 	* Task: `stylesRTL`.
 	*
@@ -247,7 +247,7 @@
 			 })
 		 );
  });
- 
+
  /**
 	* Task: `vendorsJS`.
 	*
@@ -283,7 +283,7 @@
 			 })
 		 );
  });
- 
+
  /**
 	* Task: `customJS`.
 	*
@@ -322,7 +322,7 @@
 			 })
 		 );
  });
- 
+
  /**
 	* Task: `images`.
 	*
@@ -362,7 +362,20 @@
 			 })
 		 );
  });
- 
+
+// Task for processing fonts
+gulp.task('fonts', () => {
+	return gulp
+		.src(config.fontsSRC)
+		.pipe(plumber(errorHandler))
+		.pipe(gulp.dest(config.fontsDST))
+		.pipe(
+			notify({
+				message: '\n\n✅  ===> FONTS — completed!\n',
+				onLast: true
+			})
+		);
+});
  /**
 	* Task: `clear-images-cache`.
 	*
@@ -372,7 +385,7 @@
  gulp.task('clearCache', function (done) {
 	 return cache.clearAll(done);
  });
- 
+
  /**
 	* WP POT Translation File Generator.
 	*
@@ -403,7 +416,7 @@
 			 })
 		 );
  });
- 
+
  /**
 	* Zips theme or plugin and places in the parent directory
 	*
@@ -416,7 +429,7 @@
 	 const src = [...config.zipIncludeGlob, ...config.zipIgnoreGlob];
 	 return gulp.src(src).pipe(zip(config.zipName)).pipe(gulp.dest(config.zipDestination));
  });
- 
+
  /**
 	* Watch Tasks.
 	*
@@ -424,13 +437,13 @@
 	*/
  gulp.task(
 	 'default',
-	 gulp.parallel('styles', 'vendorCSS', 'vendorsJS', 'customJS', 'images', browsersync, () => {
+	 gulp.parallel('styles', 'vendorCSS', 'vendorsJS', 'customJS', 'images', 'fonts', browsersync, () => {
 		 gulp.watch(config.watchPhp, reload); // Reload on PHP file changes.
 		 gulp.watch(config.watchStyles, gulp.parallel('styles')); // Reload on SCSS file changes.
 		 gulp.watch(config.watchStyles, gulp.parallel('vendorCSS')); // Reload on vendorCSS file changes.
 		 gulp.watch(config.watchJsVendor, gulp.series('vendorsJS', reload)); // Reload on vendorsJS file changes.
 		 gulp.watch(config.watchJsCustom, gulp.series('customJS', reload)); // Reload on customJS file changes.
 		 gulp.watch(config.imgSRC, gulp.series('images', reload)); // Reload on customJS file changes.
+		 gulp.watch(config.fontsSRC, gulp.series('fonts', reload)); // Reload on font file changes.
 	 })
  );
- 

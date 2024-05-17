@@ -2,6 +2,7 @@
 @import '../../node_modules/normalize.css/normalize';
 @import 'tools/_mq';
 @import 'tools/tools.aliases';
+@import 'tools/_flickity';
 
 // SETTINGS
 @import 'settings/_settings.global';
@@ -30,9 +31,12 @@
 @import 'components/_link.scss';
 
 
-
 // PARTIALS
 @import 'partials/_header.scss';
+@import 'partials/_hero.scss';
+@import 'partials/_why-us.scss';
+@import 'partials/_menu.scss';
+@import 'partials/_popular-dishes.scss';
 @import 'partials/_footer.scss';
 
 // UTILITIES

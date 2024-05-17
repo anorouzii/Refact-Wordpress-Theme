@@ -1,3 +1,5 @@
+@import '../tools/breakpoint-mixin';
+
 .o-section {
   padding: 3.125em 0;
   @include mq(desktop) {
@@ -10,5 +12,43 @@
   padding: 0 1em;
   @include mq(lg) {
     max-width: calc(1164px - 2em);
+  }
+}
+
+.section-container {
+  background: $brown-900;
+  border: 1px solid $black-200;
+  padding: 6.5rem;
+  @include breakpoint(1280px, 'max') {
+    padding: 5.5rem;
+  }
+  @include breakpoint(992px, 'max') {
+    padding: 2.5rem;
+  }
+  @include breakpoint(576px, 'max') {
+    padding: 1.563rem;
+    border-right-color: transparent;
+    border-left-color: transparent;
+    margin: 0 -1.5rem;
+  }
+}
+.section-title {
+  position: relative;
+  line-height: 3.297rem;
+  &::before {
+    content: '';
+    position: absolute;
+    bottom: -0.5rem;
+    left: 0;
+    background: $primary;
+    width: 2.75rem;
+    height: 0.25rem;
+    @include breakpoint(992px, 'max') {
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }
+  @include breakpoint(576px, 'max') {
+    font-size: 2.125rem;
   }
 }
