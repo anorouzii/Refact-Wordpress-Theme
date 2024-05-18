@@ -313,3 +313,94 @@ function create_custom_post_types() {
 	));
 }
 add_action('init', 'create_custom_post_types');
+
+
+// Gutenberg Related Config.
+add_action('rest_api_init', function () {
+	// Endpoint for retrieving menu items
+	register_rest_route('refact/v1', '/menu-items', array(
+		'methods' => 'GET',
+		'callback' => 'get_menu_items',
+	));
+
+	// Endpoint for updating menu items
+	register_rest_route('refact/v1', '/menu-items', array(
+		'methods' => 'POST',
+		'callback' => 'add_menu_items',
+	));
+	// Endpoint for deleting menu items
+	register_rest_route('refact/v1', '/delete-menu-item/(?P<id>\d+)', array(
+		'methods' => 'DELETE',
+		'callback' => 'delete_menu_item',
+	));
+});
+
+// Callback function for retrieving menu items
+function get_menu_items($request) {
+	$args = array(
+		'post_type' => 'menu_item',
+		'posts_per_page' => -1,
+	);
+	$menu_items = get_posts($args);
+
+	$formatted_menu_items = array();
+	foreach ($menu_items as $item) {
+		$formatted_menu_items[] = array(
+			'id' => $item->ID,
+			'category' => get_field('category', $item->ID),
+			'title' => get_field('name', $item->ID),
+			'recipe' => get_field('recipe', $item->ID),
+			'price' => get_field('price', $item->ID),
+		);
+	}
+	return rest_ensure_response($formatted_menu_items);
+}
+
+// Callback function for adding menu items
+function add_menu_items($request) {
+	$menu_item = $request->get_json_params();
+
+	if (!isset($menu_item['recipe']) || !isset($menu_item['title'])) {
+		return new WP_Error('missing_parameters', 'Menu item recipe and title are required.', array('status' => 400));
+	}
+
+	$post_data = array(
+		'post_title'   => $menu_item['title'],
+		'post_type'    => 'menu_item',
+		'post_status'  => 'publish',
+	);
+
+	// Insert the post into the database
+	$post_id = wp_insert_post($post_data);
+
+	if (is_wp_error($post_id)) {
+		return new WP_Error('post_creation_failed', 'Failed to create menu item.', array('status' => 500));
+	}
+
+	// Update custom fields if necessary
+	update_field('name', $menu_item['title'], $post_id);
+	update_field('category', $menu_item['category'], $post_id);
+	update_field('recipe', $menu_item['recipe'], $post_id);
+	update_field('price', $menu_item['price'], $post_id);
+
+	return rest_ensure_response(array('message' => 'Menu item added successfully', 'id' => $post_id));
+}
+
+// Callback function for deleting a menu item
+function delete_menu_item($request) {
+	$item_id = $request['id'];
+
+	// Check if item exists
+	if (!get_post($item_id)) {
+		return new WP_Error('invalid_id', 'Invalid menu item ID.', array('status' => 404));
+	}
+
+	// Delete the menu item
+	wp_delete_post($item_id, true);
+
+	return rest_ensure_response(array('message' => 'Menu item deleted successfully'));
+}
+
+// Enqueue script to store api calls base url.
+wp_localize_script( 'wp-api', 'wpApiSettings', array( 'root' => esc_url_raw( rest_url() ), 'nonce' => wp_create_nonce( 'wp_rest' ) ) );
+wp_enqueue_script('wp-api');
